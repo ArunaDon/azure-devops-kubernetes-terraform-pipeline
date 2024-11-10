@@ -7,17 +7,19 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: $(VmImage)
 
 stages:
 - stage: Build
+  variables:
+    environment: Build
   jobs:
   - job: FirstJob
     steps:
-    - bash: echo Build FirstdJob
+    - bash: echo $(environment) FirstdJob
   - job: SecondJob
     steps:
-    - bash: echo Build SecondJob
+    - bash: echo $(environment) SecondJob
 - stage: DevDeploy
   dependsOn : Build
   jobs:
