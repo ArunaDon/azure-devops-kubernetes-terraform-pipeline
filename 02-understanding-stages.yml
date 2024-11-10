@@ -17,9 +17,16 @@ stages:
   - job: FirstJob
     steps:
     - bash: echo $(environment) FirstdJob
-  - job: SecondJob
-    steps:
-    - bash: echo $(environment) SecondJob
+    - task: CopyFiles@2
+      inputs:
+        SourceFolder: '${System.defaultWorkingDirectory}'
+        Contents: |
+          **/*.yaml
+          **/*.tf
+        TargetFolder: '${Build.ArtifactStagingDirectory}'
+ # - job: SecondJob
+ #   steps:
+ #   - bash: echo $(environment) SecondJob
 - stage: DevDeploy
   dependsOn : Build
   jobs:
