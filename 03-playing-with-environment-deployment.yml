@@ -4,41 +4,39 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+  - master
 
 #strategy:
- # matrix:
-   # linux:
-    #  operatingSystem: 'ubuntu-latest'
-   # mac:
-   #   operatingSystem: 'macos-latest'
+# matrix:
+# linux:
+#  operatingSystem: 'ubuntu-latest'
+# mac:
+#   operatingSystem: 'macos-latest'
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: "ubuntu-latest"
 
 stages:
-- stage: Build
-  jobs:
-  - job: BuildJob
-    steps:
-    - bash: echo "Do the build"
-- stage: DevDeploy
-  jobs:
-  - deployment: DevDeployJob
-    environment: Dev
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - script: echo deploy to dev
-- stage: QADeploy
-  jobs:
-  - deployment: DevDeployJob
-    environment: QA
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - script: echo deploy to dev
-
-
+  - stage: Build
+    jobs:
+      - job: BuildJob
+        steps:
+          - bash: echo "Do the build"
+  - stage: DevDeploy
+    jobs:
+      - deployment: DevDeployJob
+        environment: Dev
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo deploy to dev
+  - stage: QADeploy
+    jobs:
+      - deployment: DevDeployJob
+        environment: QA
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - script: echo deploy to dev
