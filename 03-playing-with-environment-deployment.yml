@@ -1,17 +1,5 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
   - master
-
-#strategy:
-# matrix:
-# linux:
-#  operatingSystem: 'ubuntu-latest'
-# mac:
-#   operatingSystem: 'macos-latest'
 
 pool:
   vmImage: "ubuntu-latest"
@@ -21,22 +9,25 @@ stages:
     jobs:
       - job: BuildJob
         steps:
-          - bash: echo "Do the build"
+          - script: echo "Do the build" # Basic build step
+
   - stage: DevDeploy
     jobs:
       - deployment: DevDeployJob
-        environment: Dev
+        environment: Dev # Ensure this matches exactly with the environment name in Azure DevOps
         strategy:
           runOnce:
             deploy:
               steps:
-                - script: echo deploy to dev
+                - script: echo "Deploying to Dev environment" # Deployment to Dev
+
   - stage: QADeploy
     jobs:
       - deployment: QADeployJob
-        environment: QA
+        environment: QA # Ensure this matches exactly with the environment name in Azure DevOps
         strategy:
           runOnce:
             deploy:
               steps:
-                - script: echo deploy to QA
+                - script: echo "Deploying to QA environment" # Deployment to QA
+
