@@ -6,17 +6,17 @@
 trigger:
 - master
 
-strategy:
-  matrix:
-    linux:
-      operatingSystem: 'ubuntu-latest'
-    mac:
-      operatingSystem: 'macos-latest'
+#strategy:
+ # matrix:
+   # linux:
+    #  operatingSystem: 'ubuntu-latest'
+   # mac:
+   #   operatingSystem: 'macos-latest'
 
 pool:
-  vmImage: $(operatingSystem)
+  vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
+- script: echo Hello, world do!
   displayName: 'Run a one-line script t'
 
